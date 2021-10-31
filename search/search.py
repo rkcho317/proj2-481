@@ -87,11 +87,67 @@ def depthFirstSearch(problem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
+    "*** YOUR CODE HERE ***"
+    #Your code should quickly find a solution for:
+    #python pacman.py -l tinyMaze -p SearchAgent
+    #python pacman.py -l mediumMaze -p SearchAgent
+    #python pacman.py -l bigMaze -z .5 -p SearchAgent
+    #stores
+
+    Pacstack = util.Stack()
+
+    #tracks visited
+    Explored = []
+    #pushes initial state
+    Pacstack.push((problem.getStartState(), [], 1))
+
+    while not Pacstack.isEmpty():
+        node = Pacstack.pop()
+        state= node[0]
+        actions = node[1]
+
+        if problem.isGoalState(state):
+            return actions
+        if state not in Explored:
+            Explored.append(state)
+            next = problem.getSuccessors(state)
+
+            for next_n in next:
+                next_state = next_n[0]
+                next_action = next_n[1]
+                if next_state not in Explored:
+                    next_action = actions + [next_action]
+                    Pacstack.push((next_state, next_action, 1))
+
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+    Pacqueue = util.Queue()
+    #tracks explored nodes
+    Explored = []
+    #pushes initial state
+    Pacqueue.push((problem.getStartState(), [], 1))
+
+    while not Pacqueue.isEmpty():
+        node = Pacqueue.pop()
+        state= node[0]
+        actions = node[1]
+
+        if problem.isGoalState(state):
+            return actions
+        if state not in Explored:
+            Explored.append(state)
+            next = problem.getSuccessors(state)
+
+            for next_n in next:
+                next_state = next_n[0]
+                next_action = next_n[1]
+                if next_state not in Explored:
+                    next_action = actions + [next_action]
+                    Pacqueue.push((next_state, next_action, 1))
+    
     util.raiseNotDefined()
 
 def uniformCostSearch(problem):
@@ -109,6 +165,7 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
+    
     util.raiseNotDefined()
 
 
